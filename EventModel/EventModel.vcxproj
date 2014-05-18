@@ -64,10 +64,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="calender.cpp" />
+    <ClCompile Include="events.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mobject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="calender.h" />
+    <ClInclude Include="Codes.h" />
+    <ClInclude Include="events.h" />
     <ClInclude Include="mobject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
