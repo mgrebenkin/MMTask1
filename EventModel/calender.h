@@ -11,11 +11,11 @@ struct calender
 public:
 	calender(double inT, int inCode){ 
 		if (inT >= 0) T = inT; else T = 0; 
-		if (inCode >= _GEN1 && code <= _OUT2END) code = inCode; else code = _GEN1;
+		if (inCode >= _GEN1 && code <= _STAT) code = inCode; else code = _GEN1;
 	}
 	double T;	//время
 	int code;	//код события
 	
 };
 
-void Schedule(vector<calender>& c, double inT, int inCode);
+void schedule(vector<calender>& c, double inT, int inCode);

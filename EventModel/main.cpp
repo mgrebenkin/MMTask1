@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "windows.h"
 #include "mobject.h"
 #include "calender.h"
 #include "events.h"
@@ -13,60 +14,33 @@ vector<calender> c;
 //рекн опнцпюллш
 void main()
 {
-	
-	c.push_back(calender(0, _GEN1));
-	c.push_back(calender(0, _GEN2));
+	cout << "Press SPACE to run model." << endl;
+	cout << "Press ARROW RIGHT to run model step by step." << endl;
+	cout << "Press ESC to quit." << endl;
+	bool done = false;
 
-
-	double endtime = 10000;
-	int i = 0;
-	
-	while (c[i].T < endtime)
+	while (!done)
 	{
-		o.setTime(c[i].T);
 
-		switch (c[i].code)
+		switch ()
 		{
-		case _GEN1:
-			gen1();
+		case VK_ESCAPE:
+			done = true;
 			break;
-		case _GEN2:
-			gen2();
+		case VK_SPACE:
 			break;
-		case _PROCSTART:
-			procstart();
-			break;
-		case _PROCEND:
-			procend();
-			break;
-		case _OUT1:
-			out1();
-			break;
-		case _OUT1START:
-			out1start();
-			break;
-		case _OUT1END:
-			out1end();
-			break;
-		case _OUT2:
-			out2();
-			break;
-		case _OUT2START:
-			out2start();
-			break;
-		case _OUT2END:
-			out2end();
+		case VK_RIGHT:
 			break;
 		default:
 			break;
 		}
-
-		i++;
 	}
+	
 
-	cout << "Denial probability: " << o.getDenProbability() << endl;
-	cout << "Loads: " << o.getProcLd() << " | " << o.getLd1() << " | " <<
-		o.getLd2() << endl;
+
 	getchar();
+	
+	return;
+	
 
 }

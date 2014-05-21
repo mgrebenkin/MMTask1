@@ -1,7 +1,7 @@
 #include "calender.h"
 
 
-void Schedule(vector<calender>& c, double inT, int inCode)
+void schedule(vector<calender>& c, double inT, int inCode)
 {
 	vector<calender>::iterator it = c.end(); //просмотр вектора с конца, чтобы найти элемент
 	it--;

@@ -7,13 +7,12 @@
 
 void gen1();
 void gen2();
-void procstart();
-void procend();
+void proc();
 
-void out1();
-void out1start();
-void out1end();
+void out1buf();
+void out1proc();
 
-void out2();
-void out2start();
-void out2end();
+void out2buf();
+void out2proc();
+
+void stat();

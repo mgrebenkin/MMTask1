@@ -5,103 +5,96 @@ extern vector<calender> c;
 
 void gen1()
 {
-	o.NewEnt();
-	o.setX(1);
-	if (o.getType() == 0)
-	{
-		o.setType(1);
-		Schedule(c, o.getTime(), _PROCSTART);
-	}
-	else
-	{
-		o.Qadd(1);
-	}
-	Schedule(c, o.getTime() + 15 + o.getRnd1(), _GEN1);
+	o.X = 1;
+	o.ents++;
+	o.Qadd(1);
+
+	if (o.enttype == 0) schedule(c, o.fullt, _PROC);
+	
+	schedule(c, o.fullt + 15 + o.getRnd1(), _GEN1);
 }
+
 void gen2()
 {
-	o.NewEnt();
-	o.setX(2);
-	if (o.getType() == 0)
-	{
-		o.setType(2);
-		Schedule(c, o.getTime(), _PROCSTART);
-	}
-	else
-	{
-		o.Qadd(2);
-	}
-	Schedule(c, o.getTime() + 15 + o.getRnd1(), _GEN2);
-}
-void procstart()
-{
-	Schedule(c, o.getTime() + 7.0, _PROCEND);
-}
-void procend()
-{
-	o.MoreLoadTime();
-	if (o.getType() == 1) Schedule(c, o.getTime(), _OUT1);
-	else if (o.getType() == 2) Schedule(c, o.getTime(), _OUT2);
+	o.X = 2;
+	o.ents++;
+	o.Qadd(2);
 
+	if (o.fullt == 0) schedule(c, o.fullt, _PROC);
+	
+	schedule(c, o.fullt + 15 + o.getRnd1(), _GEN2);
+}
+
+void proc()
+{
 	int buf = o.Qtake();
-	if (buf == 1)
-	{
-		Schedule(c, o.getTime(), _PROCSTART);
-		o.setType(1);
-	}
-	else if (buf == 2)
-	{
-		Schedule(c, o.getTime(), _PROCSTART);
-		o.setType(2);
-	}
+	if (buf == 0) o.enttype = 0;
 	else
 	{
-		o.setType(0);
+		o.enttype = buf;
+		schedule(c, o.fullt + 7, _PROC);
+
+		o.ldtime += 7;
+
+		if (buf == 1) schedule(c, o.fullt + 7, _OUTBUF1);
+		else if (buf == 2) schedule(c, o.fullt + 7, _OUTBUF2);
+		
 	}
 }
 
-void out1()
+void out1buf()
 {
-	if (!o.isProc1())
-		Schedule(c, o.getTime(), _OUT1START);
+	if (o.Q1 >= 3) o.den++;
 	else
-	o.Q1add();
-}
-void out1start()
-{
-	double buf = o.getRnd2();
-	Schedule(c, o.getTime() + 15 + buf, _OUT1END);
-	o.MoreLoadTime1(15 + buf);
-	o.proc1(1);
-}
-void out1end()
-{
-	int buf = o.Q1take();
-	if (buf)
-		Schedule(c, o.getTime(), _OUT1START);
-	else
-		o.proc1(0);
+	{
+		o.Q1++;
+		if (o.ld1 == 0) schedule(c, o.fullt, _OUT1PROC);
+	}
+
+	
 }
 
-void out2()
+void out2buf()
 {
-	if (!o.isProc2())
-		Schedule(c, o.getTime(), _OUT2START);
+	if (o.Q2 >= 3) o.den++;
 	else
-		o.Q2add();
+	{
+		o.Q2++;
+		if (o.ld2 == 0) schedule(c, o.fullt, _OUT2PROC);
+	}
 }
-void out2start()
+
+void out1proc()
 {
-	double buf = o.getRnd2();
-	Schedule(c, o.getTime() + 15 + buf, _OUT2END);
-	o.MoreLoadTime2(15 + buf);
-	o.proc2(1);
-}
-void out2end()
-{
-	int buf = o.Q2take();
-	if (buf)
-		Schedule(c, o.getTime(), _OUT2START);
+	if (o.Q1 == 0) o.ld1 = 0;
 	else
-		o.proc2(0);
+	{
+		o.ld1 = 1;
+		double tproc = 15 + o.getRnd2();
+		schedule(c, o.fullt + tproc, _OUT1PROC);
+		
+		o.ldtime1 += tproc;
+	}
+}
+
+void out2proc()
+{
+	if (o.Q2 == 0) o.ld2 = 0;
+	else
+	{
+		o.ld2 = 1;
+		double tproc = 15 + o.getRnd2();
+		schedule(c, o.fullt + tproc, _OUT2PROC);
+
+		o.ldtime2 += tproc;
+	}
+
+}
+
+void stat()
+{
+	o.denprb = (double)o.den / (double)o.ents;
+	o.ldproc = o.ldtime / o.fullt;
+	o.ldproc1 = o.ldtime1 / o.fullt;
+	o.ldproc2 = o.ldtime2 / o.fullt;
 }

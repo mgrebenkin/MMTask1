@@ -67,7 +67,6 @@
     <ClCompile Include="calender.cpp" />
     <ClCompile Include="events.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="mobject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="calender.h" />
