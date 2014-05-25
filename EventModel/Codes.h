@@ -8,3 +8,5 @@
 #define _OUT1PROC 6
 #define _OUT2PROC 7
 #define _STAT 8
+
+#define _PROCAMOUNT 7

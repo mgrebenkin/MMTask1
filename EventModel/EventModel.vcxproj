@@ -65,12 +65,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="calender.cpp" />
+    <ClCompile Include="console.cpp" />
     <ClCompile Include="events.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="calender.h" />
     <ClInclude Include="Codes.h" />
+    <ClInclude Include="console.h" />
     <ClInclude Include="events.h" />
     <ClInclude Include="mobject.h" />
   </ItemGroup>

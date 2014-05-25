@@ -24,7 +24,7 @@ void PrintCalender(vector<calender>& c)
 	else
 	{
 		cout << "Calender: " << endl;
-		for (int i = 0; i < c.size(); i++)
+		for (size_t i = 0; i < c.size(); i++)
 			cout << c[i].T << "   " << c[i].code << endl;
 	}
 

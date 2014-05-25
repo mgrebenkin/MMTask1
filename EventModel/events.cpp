@@ -29,18 +29,19 @@ void gen2()
 
 void proc()
 {
+	if (o.enttype != 0) o.ldtime += 7;
 	int buf = o.Qtake();
 	if (buf == 0) o.enttype = 0;
 	else
 	{
-		o.enttype = buf;
-		schedule(c, o.fullt + 7, _PROC);
 
-		o.ldtime += 7;
+		o.enttype = buf;
 
 		if (buf == 1) schedule(c, o.fullt + 7, _OUTBUF1);
 		else if (buf == 2) schedule(c, o.fullt + 7, _OUTBUF2);
-		
+
+	
+		schedule(c, o.fullt + 7, _PROC);
 	}
 }
 
@@ -53,7 +54,6 @@ void out1buf()
 		if (o.ld1 == 0) schedule(c, o.fullt, _OUT1PROC);
 	}
 
-	
 }
 
 void out2buf()
@@ -68,27 +68,26 @@ void out2buf()
 
 void out1proc()
 {
+	if (o.ld1 == 1) o.ldtime1 += o.tproc1;
 	if (o.Q1 == 0) o.ld1 = 0;
 	else
 	{
 		o.ld1 = 1;
-		double tproc = 15 + o.getRnd2();
-		schedule(c, o.fullt + tproc, _OUT1PROC);
-		
-		o.ldtime1 += tproc;
+		o.tproc1 = 15 + o.getRnd2();
+		schedule(c, o.fullt + o.tproc1, _OUT1PROC);
+
 	}
 }
 
 void out2proc()
 {
+	if (o.ld2 == 1) o.ldtime2 += o.tproc2;
 	if (o.Q2 == 0) o.ld2 = 0;
 	else
 	{
 		o.ld2 = 1;
-		double tproc = 15 + o.getRnd2();
-		schedule(c, o.fullt + tproc, _OUT2PROC);
-
-		o.ldtime2 += tproc;
+		o.tproc2 = 15 + o.getRnd2();
+		schedule(c, o.fullt + o.tproc2, _OUT2PROC);
 	}
 
 }
