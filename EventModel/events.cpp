@@ -7,9 +7,10 @@ void gen1()
 {
 	o.X = 1;
 	o.ents++;
+	if (o.enttype == 0 && o.Qsize() == 0) schedule(c, o.fullt, _PROC);
 	o.Qadd(1);
 
-	if (o.enttype == 0) schedule(c, o.fullt, _PROC);
+	
 	
 	schedule(c, o.fullt + 15 + o.getRnd1(), _GEN1);
 }
@@ -18,9 +19,10 @@ void gen2()
 {
 	o.X = 2;
 	o.ents++;
+	if (o.enttype == 0 && o.Qsize() == 0) schedule(c, o.fullt, _PROC);
 	o.Qadd(2);
 
-	if (o.fullt == 0) schedule(c, o.fullt, _PROC);
+	
 	
 	schedule(c, o.fullt + 15 + o.getRnd1(), _GEN2);
 }
@@ -93,8 +95,17 @@ void out2proc()
 
 void stat()
 {
-	o.denprb = (double)o.den / (double)o.ents;
-	o.ldproc = o.ldtime / o.fullt;
-	o.ldproc1 = o.ldtime1 / o.fullt;
-	o.ldproc2 = o.ldtime2 / o.fullt;
+	if (o.ents == 0) o.denprb = 0;
+	else o.denprb = (double)o.den / (double)o.ents;
+
+	if (o.fullt == 0)
+	{
+		o.ldproc = 0; o.ldproc1 = 0; o.ldproc2 = 0;
+	}
+	else
+	{
+		o.ldproc = o.ldtime / o.fullt;
+		o.ldproc1 = o.ldtime1 / o.fullt;
+		o.ldproc2 = o.ldtime2 / o.fullt;
+	}
 }

@@ -41,6 +41,7 @@ public:
 
 	void Qadd(int type){ if (type == 1 || type == 2) Q.push_back(type); }
 	
+	int Qsize() { return Q.size(); }
 	int Qtake(){
 		if (Q.size() != 0)
 		{
@@ -49,6 +50,7 @@ public:
 		else return 0;
 	}
 
+	
 
 	double getRnd1() { dist1.reset(); return dist1(eng); }
 	double getRnd2() { dist2.reset(); return dist2(eng); }

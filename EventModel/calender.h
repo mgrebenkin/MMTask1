@@ -1,7 +1,11 @@
 #pragma once
 
+#include <iostream>
+#include "conio.h"
 #include <vector>
 #include "Codes.h"
+#include "windows.h"
+
 
 using namespace std;
 
@@ -19,3 +23,4 @@ public:
 };
 
 void schedule(vector<calender>& c, double inT, int inCode);
+void PrintCalender(vector<calender>& c);
