@@ -1,6 +1,3 @@
-//#include <iostream>
-//#include <vector>
-//#include "windows.h"
 #include "mobject.h"
 #include "calender.h"
 #include "events.h"
